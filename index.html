@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List With drag & Drop</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="no_status_label">No Status</div>
+            <div class="not_start_label">Not Started</div>
+            <div class="in_progress_label">In Progress</div>
+            <div class="completed_label">Completed</div>
+            <div class="no_status_content">
+                <div class="Add_todo">
+                    <i class="plus-icon">
+                        <img src="./icon/icons8-plus-24.png" alt="plus icon">
+                    </i>
+                    <h4 >Add ToDo</h4>
+                </div>
+                <div class="todo_item" draggable="true" id="todo_item">
+                    <span class="close-icon-container">
+                        <img src="./icon/icons8-close-20.png" alt="close icon" class="close-icon">
+                    </span>
+                    <p>Buy a Pizza</p>
+                </div>
+            </div>
+            <div class="not_start_content" ondragover="dragOverHandeler(event)"></div>
+            <div class="in_progress_content" ondragover="dragOverHandeler(event)"></div>
+            <div class="completed_content" ondragover="dragOverHandeler(event)"></div>
+        </div>
+    </div>
+    
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">Add ToDo</div>
+            <span class="close-modal">
+                <img src="./icon/icons8-close-20.png" alt="close icon">
+            </span>
+        </div>
+        <input type="text" class="modal-input" placeholder="write a ToDo">
+        <button class="modal-btn">Add ToDo</button>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
