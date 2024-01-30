@@ -1,7 +1,6 @@
 let $=document;
 let wrapper=$.querySelector(".wrapper");
 let addTodoBtn=$.querySelector(".Add_todo");
-// let todoItem=$.querySelector(".todo_item");
 let modal=$.querySelector(".modal");
 let closeMpdalBtn=$.querySelector(".close-modal");
 let addModalBtn=$.querySelector(".modal-btn");
@@ -56,9 +55,9 @@ function AddTodo(){
     })
     let todoItem=$.querySelector(".todo_item");
     todoItem.addEventListener("drag",dragItemHandeler);
-notStartColumn.addEventListener("drop",dropCulumnsHandeler);
-inProgressColumn.addEventListener("drop",dropCulumnsHandeler);
-completedColumn.addEventListener("drop",dropCulumnsHandeler);
+    notStartColumn.addEventListener("drop",dropColumnsHandeler);
+    inProgressColumn.addEventListener("drop",dropColumnsHandeler);
+    completedColumn.addEventListener("drop",dropColumnsHandeler);
 }
 function addTodoModalHandeler(){
     AddTodo()
@@ -74,7 +73,7 @@ function dragItemHandeler(event){
 function dragOverHandeler(event){
     event.preventDefault();
 }
-function dropCulumnsHandeler(event){
+function dropColumnsHandeler(event){
     event.preventDefault();
     let targetId=event.dataTransfer.getData('text');
     let targetElem=$.getElementById(targetId);
@@ -85,7 +84,3 @@ addTodoBtn.addEventListener("click",addTodoHandeler);
 closeMpdalBtn.addEventListener("click",closeModalHandeler);
 modalInput.addEventListener("keydown",enterKeyHandeler)
 addModalBtn.addEventListener("click",addTodoModalHandeler);
-// todoItem.addEventListener("drag",dragItemHandeler);
-// notStartColumn.addEventListener("drop",dropCulumnsHandeler);
-// inProgressColumn.addEventListener("drop",dropCulumnsHandeler);
-// completedColumn.addEventListener("drop",dropCulumnsHandeler);
