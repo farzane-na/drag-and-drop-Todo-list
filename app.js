@@ -1,7 +1,7 @@
 let $=document;
 let wrapper=$.querySelector(".wrapper");
 let addTodoBtn=$.querySelector(".Add_todo");
-let todoItem=$.querySelector(".todo_item");
+// let todoItem=$.querySelector(".todo_item");
 let modal=$.querySelector(".modal");
 let closeMpdalBtn=$.querySelector(".close-modal");
 let addModalBtn=$.querySelector(".modal-btn");
@@ -19,11 +19,15 @@ function closeModalHandeler(){
     modal.style.display="none";
     wrapper.style.filter="blur(0px)";
 }
+let numOfItem=1;
+let newId="item"+numOfItem;
 function AddTodo(){
     if(modalInput.value){
+        
         let newTodo=$.createElement("div")
         newTodo.className="todo_item";
         newTodo.setAttribute("draggable","true");
+        newTodo.setAttribute("id",newId)
         let newParagraph=$.createElement("p")
         newParagraph.innerHTML=modalInput.value
         let newIconCloseTodo=$.createElement("span");
@@ -36,17 +40,27 @@ function AddTodo(){
         newTodo.appendChild(newIconCloseTodo);
         newTodo.appendChild(newParagraph)
         noStatusCulumn.appendChild(newTodo);
-     }
-     modalInput.value=""
-     let deleteTodos=$.querySelectorAll(".close-icon-container");
-     deleteTodos.forEach(function(deleteTodo){
-         deleteTodo.addEventListener("click",function(event){
-             event.target.parentElement.parentElement.remove()
-         });
-     })
+        console.log(newTodo)
+        numOfItem+=1;
+        newId="item"+numOfItem
+        newTodo.addEventListener("dragstart" , function(event) {
+            dragItemHandeler(event)
+        })
+    }
+    modalInput.value=""
+    let deleteTodos=$.querySelectorAll(".close-icon-container");
+    deleteTodos.forEach(function(deleteTodo){
+        deleteTodo.addEventListener("click",function(event){
+            event.target.parentElement.parentElement.remove()
+        });
+    })
+    let todoItem=$.querySelector(".todo_item");
+    todoItem.addEventListener("drag",dragItemHandeler);
+notStartColumn.addEventListener("drop",dropCulumnsHandeler);
+inProgressColumn.addEventListener("drop",dropCulumnsHandeler);
+completedColumn.addEventListener("drop",dropCulumnsHandeler);
 }
 function addTodoModalHandeler(){
-    console.log(modalInput.value)
     AddTodo()
 }
 function enterKeyHandeler(event){
@@ -54,22 +68,16 @@ function enterKeyHandeler(event){
         AddTodo()
     }
 }
-function delteTodoHandeler(event){
-    console.log(event.target.parentElement.parentElement)
-}
 function dragItemHandeler(event){
-    event.dataTransfer.setData('elemId',event.target.id);
-    console.log("id :"+event.target.id)
+    event.dataTransfer.setData('text',event.target.id);
 }
 function dragOverHandeler(event){
     event.preventDefault();
 }
 function dropCulumnsHandeler(event){
     event.preventDefault();
-    debugger
-    let targetId=event.dataTransfer.getData('elemId');
+    let targetId=event.dataTransfer.getData('text');
     let targetElem=$.getElementById(targetId);
-    console.log(targetId)
     event.target.append(targetElem)
     
 }
@@ -77,7 +85,7 @@ addTodoBtn.addEventListener("click",addTodoHandeler);
 closeMpdalBtn.addEventListener("click",closeModalHandeler);
 modalInput.addEventListener("keydown",enterKeyHandeler)
 addModalBtn.addEventListener("click",addTodoModalHandeler);
-todoItem.addEventListener("drag",dragItemHandeler);
-notStartColumn.addEventListener("drop",dropCulumnsHandeler);
-inProgressColumn.addEventListener("drop",dropCulumnsHandeler);
-completedColumn.addEventListener("drop",dropCulumnsHandeler);
+// todoItem.addEventListener("drag",dragItemHandeler);
+// notStartColumn.addEventListener("drop",dropCulumnsHandeler);
+// inProgressColumn.addEventListener("drop",dropCulumnsHandeler);
+// completedColumn.addEventListener("drop",dropCulumnsHandeler);
